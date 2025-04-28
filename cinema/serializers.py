@@ -1,6 +1,13 @@
 from rest_framework import serializers
-
-from cinema.models import *
+from cinema.models import (
+    CinemaHall,
+    Genre,
+    Actor,
+    Movie,
+    MovieSession,
+    Order,
+    Ticket,
+)
 
 
 class CinemaHallSerializer(serializers.ModelSerializer):
@@ -31,7 +38,8 @@ class MovieSerializer(serializers.ModelSerializer):
 
 class MovieListSerializer(serializers.ModelSerializer):
     genres = serializers.SlugRelatedField(
-        many=True, read_only=True, slug_field="name")
+        many=True, read_only=True, slug_field="name"
+    )
     actors = serializers.SerializerMethodField()
 
     class Meta:
@@ -39,7 +47,10 @@ class MovieListSerializer(serializers.ModelSerializer):
         fields = ("id", "title", "description", "duration", "genres", "actors")
 
     def get_actors(self, obj):
-        return [f"{actor.first_name} {actor.last_name}" for actor in obj.actors.all()]
+        return [
+            f"{actor.first_name} {actor.last_name}"
+            for actor in obj.actors.all()
+        ]
 
 
 class ActorDetailSerializer(serializers.ModelSerializer):
@@ -74,7 +85,8 @@ class MovieSessionSerializer(serializers.ModelSerializer):
 class MovieSessionListSerializer(serializers.ModelSerializer):
     movie_title = serializers.CharField(source="movie.title", read_only=True)
     cinema_hall_name = serializers.CharField(
-        source="cinema_hall.name", read_only=True)
+        source="cinema_hall.name", read_only=True
+    )
     cinema_hall_capacity = serializers.SerializerMethodField()
 
     class Meta:

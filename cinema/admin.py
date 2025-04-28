@@ -18,7 +18,7 @@ class TicketInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderInline(admin.ModelAdmin):
-    inlines = (TicketInline,)
+    inlines = (TicketInline, )
 
 
 admin.site.register(CinemaHall)
