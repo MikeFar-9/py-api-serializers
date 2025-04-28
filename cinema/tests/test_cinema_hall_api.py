@@ -1,7 +1,6 @@
 from django.test import TestCase
-
-from rest_framework.test import APIClient
 from rest_framework import status
+from rest_framework.test import APIClient
 
 from cinema.models import CinemaHall
 
@@ -32,8 +31,7 @@ class CinemaHallApiTests(TestCase):
         self.assertEqual(response.data[0]["name"], blue_hall["name"])
         self.assertEqual(response.data[0]["rows"], blue_hall["rows"])
         self.assertEqual(
-            response.data[0]["seats_in_row"], blue_hall["seats_in_row"]
-        )
+            response.data[0]["seats_in_row"], blue_hall["seats_in_row"])
         vip_hall = {
             "name": "VIP",
             "rows": 6,
@@ -44,8 +42,7 @@ class CinemaHallApiTests(TestCase):
         self.assertEqual(response.data[1]["name"], vip_hall["name"])
         self.assertEqual(response.data[1]["rows"], vip_hall["rows"])
         self.assertEqual(
-            response.data[1]["seats_in_row"], vip_hall["seats_in_row"]
-        )
+            response.data[1]["seats_in_row"], vip_hall["seats_in_row"])
 
     def test_post_cinema_halls(self):
         response = self.client.post(
@@ -73,8 +70,7 @@ class CinemaHallApiTests(TestCase):
         self.assertEqual(response.data["name"], vip_hall["name"])
         self.assertEqual(response.data["rows"], vip_hall["rows"])
         self.assertEqual(
-            response.data["seats_in_row"], vip_hall["seats_in_row"]
-        )
+            response.data["seats_in_row"], vip_hall["seats_in_row"])
         self.assertEqual(response.data["capacity"], vip_hall["capacity"])
 
     def test_get_invalid_cinema_hall(self):
