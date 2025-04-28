@@ -11,11 +11,14 @@ from cinema.models import (
 
 
 class CinemaHallSerializer(serializers.ModelSerializer):
-    is_small = serializers.ReadOnlyField()
+    is_small = serializers.SerializerMethodField()
 
     class Meta:
         model = CinemaHall
         fields = "__all__"
+
+    def get_is_small(self, obj):
+        return obj.is_small
 
 
 class GenreSerializer(serializers.ModelSerializer):

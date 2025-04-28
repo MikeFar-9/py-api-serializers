@@ -19,18 +19,12 @@ from cinema.serializers import (
 
 
 class MovieSessionViewSet(viewsets.ModelViewSet):
-    queryset = MovieSession.objects.all().select_related()
+    queryset = MovieSession.objects.select_related("movie", "cinema_hall")
 
     def get_serializer_class(self):
         if self.action == "list":
             return MovieSessionListSerializer
         return MovieSessionSerializer
-
-    def get_queryset(self):
-        queryset = self.queryset
-        if self.action == "list":
-            return queryset.select_related()
-        return queryset
 
 
 class MovieViewSet(viewsets.ModelViewSet):
